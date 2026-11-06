@@ -18,4 +18,4 @@ else
   TEXT="$1"
 fi
 
-java Main "$TEXT"
+java Main -encode "$TEXT"

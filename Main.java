@@ -8,11 +8,34 @@ public class Main {
   private static final char SPACE_DISPLAY = '␣';
 
   public static void main(String[] args) {
-    if (args.length < 1) {
-      System.out.println("Usage: java Main \"TEXT\"");
+
+    if (args.length > 1) {
+      switch (args[0]) {
+        case "-encode":
+          encode(args[1]);
+          break;
+        case "-decode":
+          System.out.println("decoding text...");
+          break;
+        default:
+          System.out.println();
+          System.out.println("Flag desconocido.");
+          printHelp();
+          System.exit(1);
+          break;
+      }
+    } else {
+      printHelp();
       System.exit(1);
     }
-    encode(args[0]);
+  }
+
+  private static void printHelp() {
+    System.out.println("Uso: java Main [FLAGS] \"TEXTO\"");
+    System.out.println("\nFLAGS:");
+    System.out.printf(
+        "  -encode        Comprimir texto con su tabla de frecuencias, pasos y texto codificado%n");
+    System.out.printf("  -decode        Recrear texto original del texto comprimido%n");
   }
 
   private static void encode(String text) {
