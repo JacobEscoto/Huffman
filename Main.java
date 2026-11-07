@@ -89,17 +89,17 @@ public class Main {
 
     for (int i = 0; i < parts.length; i++) {
       String entry = parts[i].trim();
-      String[] fields = entry.split(":");
-
       if (entry.isEmpty()) {
         System.out.println("Hay una entrada vacía en la tabla");
         System.exit(1);
       }
 
+      String[] fields = entry.split(":");
       if (fields.length != 2 || fields[0].isEmpty() || fields[1].isEmpty()) {
         System.out.println("Entrada no válida: " + entry);
         System.exit(1);
       }
+
       table[i] = entry;
     }
 
@@ -107,16 +107,12 @@ public class Main {
   }
 
   private static void decode(String[] table, String bits) {
-    if (table == null || table.length == 0) {
-      System.out.println("La tabla está vacía");
-      System.exit(1);
-    }
     if (bits == null || bits.isEmpty()) {
       System.out.println("La cadena de bits está vacía");
       System.exit(1);
     }
 
-    int[] frequencies = new int[256];
+    int[] frequencies = new int[SYMBOL_COUNT];
 
     for (String entry : table) {
       String symbolStr = entry.substring(0, entry.indexOf(":"));
@@ -126,6 +122,10 @@ public class Main {
         System.exit(1);
       }
       char symbol = symbolStr.charAt(0);
+      if (symbol > 255) {
+        System.out.println("El símbolo " + symbol + " no está permitido");
+        System.exit(1);
+      }
       String frequencyStr = entry.substring(entry.indexOf(":") + 1);
       int frequency = 0;
       try {
