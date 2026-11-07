@@ -16,7 +16,7 @@ public class Huffman {
 
   // Builds the Huffman tree
   public static Node buildTree(int[] frequencies) {
-    PriorityQueue<Node> queue = new PriorityQueue<>((a, b) -> Node.compare(a, b));
+    PriorityQueue<Node> queue = new PriorityQueue<>(Node::compare);
     int nextOrder = 0;
 
     for (int symbol = 0; symbol < 256; symbol++) {
